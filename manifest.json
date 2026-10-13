@@ -12,6 +12,13 @@
     "default_popup": "popup.html",
     "default_title": "Linux.Do AutoScroll"
   },
+  "content_scripts": [
+    {
+      "matches": ["https://linux.do/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
   "commands": {
     "toggle-scroll": {
       "suggested_key": {

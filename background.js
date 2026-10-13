@@ -36,6 +36,14 @@ chrome.commands.onCommand.addListener((command) => {
   }
 });
 
+// Ctrl+左键(content script)开关
+chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+  if (msg && msg.type === "toggle-scroll") {
+    cfg.enabled ? stop() : start();
+    sendResponse({ enabled: cfg.enabled });
+  }
+});
+
 function rand(a, b) {
   return Math.floor(a + Math.random() * (b - a));
 }

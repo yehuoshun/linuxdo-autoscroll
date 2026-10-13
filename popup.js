@@ -25,8 +25,8 @@ function fmt(v) {
 
 function render(cfg) {
   ui.status.textContent = cfg.enabled
-    ? "状态: 滚动中 · Alt+Shift+S 停止"
-    : "状态: 停止 · Alt+Shift+S 开始";
+    ? "状态: 滚动中 · Ctrl+左键停止"
+    : "状态: 停止 · Ctrl+左键开始";
   ui.status.className = "status " + (cfg.enabled ? "on" : "off");
   ui.toggle.textContent = cfg.enabled ? "停止滚动" : "开始滚动";
   ui.iv.textContent = fmt(cfg.minInterval) + " ~ " + fmt(cfg.maxInterval);
