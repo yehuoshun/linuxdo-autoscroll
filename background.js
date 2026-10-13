@@ -74,17 +74,25 @@ async function scrollStep() {
       func: (minStep, maxStep, loop) => {
         const maxY = document.documentElement.scrollHeight - window.innerHeight;
         if (maxY <= 0) return { bottom: false, atBottom: true };
+        // 随机回看:15% 概率向上滚一小段(像人回读上一段)
+        if (window.scrollY > 300 && Math.random() < 0.15) {
+          const back = 100 + Math.random() * 250;
+          window.scrollTo({ top: window.scrollY - back, behavior: "smooth" });
+          return { bottom: false, atBottom: false };
+        }
         const step = minStep + Math.random() * (maxStep - minStep);
         const next = window.scrollY + step;
+        // 10% 概率瞬间跳跃(像人拖滚动条),其余平滑滚
+        const behavior = Math.random() < 0.1 ? "auto" : "smooth";
         if (next >= maxY) {
           if (loop) {
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            window.scrollTo({ top: 0, behavior });
             return { bottom: false, atBottom: false };
           }
-          window.scrollTo({ top: maxY, behavior: "smooth" });
+          window.scrollTo({ top: maxY, behavior });
           return { bottom: true, atBottom: true };
         }
-        window.scrollTo({ top: next, behavior: "smooth" });
+        window.scrollTo({ top: next, behavior });
         return { bottom: false, atBottom: false };
       },
       args: [cfg.minStep, cfg.maxStep, cfg.loop]
@@ -104,7 +112,12 @@ function tick() {
   // 只要间隔 < 30s,Service Worker 就不会被休眠
   scrollStep().then(() => {
     if (cfg.enabled) {
-      timer = setTimeout(tick, rand(cfg.minInterval, cfg.maxInterval));
+      let wait = rand(cfg.minInterval, cfg.maxInterval);
+      // 12% 概率长停顿(像人停下来读帖),停 3~5 倍时长
+      if (Math.random() < 0.12) {
+        wait = wait * (3 + Math.random() * 2);
+      }
+      timer = setTimeout(tick, wait);
     }
   });
 }
