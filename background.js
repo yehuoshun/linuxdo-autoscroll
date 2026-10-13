@@ -74,12 +74,6 @@ async function scrollStep() {
       func: (minStep, maxStep, loop) => {
         const maxY = document.documentElement.scrollHeight - window.innerHeight;
         if (maxY <= 0) return { bottom: false, atBottom: true };
-        // 回看保留 8%(偶尔回头瞄一眼),快速浏览为主
-        if (window.scrollY > 300 && Math.random() < 0.08) {
-          const back = 100 + Math.random() * 250;
-          window.scrollTo({ top: window.scrollY - back, behavior: "smooth" });
-          return { bottom: false, atBottom: false };
-        }
         const step = minStep + Math.random() * (maxStep - minStep);
         const next = window.scrollY + step;
         // 15% 概率瞬间跳跃(像人拖滚动条),其余平滑滚
