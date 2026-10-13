@@ -5,11 +5,11 @@
 
 const DEFAULTS = {
   enabled: false,
-  minInterval: 3000, // 滚动间隔下限 ms
-  maxInterval: 8000, // 滚动间隔上限 ms
-  minStep: 300,      // 每次滚动像素下限
-  maxStep: 700,      // 每次滚动像素上限
-  loop: false        // 触底是否回到顶部循环
+  minInterval: 800,   // 快刷档:800ms~2s 滚一次
+  maxInterval: 2000,
+  minStep: 600,       // 每次滚大半屏
+  maxStep: 1100,
+  loop: true          // 刷帖模式:触底自动回顶继续刷
 };
 
 let cfg = { ...DEFAULTS };
@@ -74,16 +74,16 @@ async function scrollStep() {
       func: (minStep, maxStep, loop) => {
         const maxY = document.documentElement.scrollHeight - window.innerHeight;
         if (maxY <= 0) return { bottom: false, atBottom: true };
-        // 随机回看:15% 概率向上滚一小段(像人回读上一段)
-        if (window.scrollY > 300 && Math.random() < 0.15) {
+        // 回看保留 8%(偶尔回头瞄一眼),快速浏览为主
+        if (window.scrollY > 300 && Math.random() < 0.08) {
           const back = 100 + Math.random() * 250;
           window.scrollTo({ top: window.scrollY - back, behavior: "smooth" });
           return { bottom: false, atBottom: false };
         }
         const step = minStep + Math.random() * (maxStep - minStep);
         const next = window.scrollY + step;
-        // 10% 概率瞬间跳跃(像人拖滚动条),其余平滑滚
-        const behavior = Math.random() < 0.1 ? "auto" : "smooth";
+        // 15% 概率瞬间跳跃(像人拖滚动条),其余平滑滚
+        const behavior = Math.random() < 0.15 ? "auto" : "smooth";
         if (next >= maxY) {
           if (loop) {
             window.scrollTo({ top: 0, behavior });
@@ -113,9 +113,9 @@ function tick() {
   scrollStep().then(() => {
     if (cfg.enabled) {
       let wait = rand(cfg.minInterval, cfg.maxInterval);
-      // 12% 概率长停顿(像人停下来读帖),停 3~5 倍时长
-      if (Math.random() < 0.12) {
-        wait = wait * (3 + Math.random() * 2);
+      // 5% 概率短停顿(停下来看个帖子),其余一直刷
+      if (Math.random() < 0.05) {
+        wait = wait * (2 + Math.random());
       }
       timer = setTimeout(tick, wait);
     }

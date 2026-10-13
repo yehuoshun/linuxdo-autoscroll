@@ -12,11 +12,11 @@ const ui = {
 
 const DEFAULTS = {
   enabled: false,
-  minInterval: 3000,
-  maxInterval: 8000,
-  minStep: 300,
-  maxStep: 700,
-  loop: false
+  minInterval: 800,
+  maxInterval: 2000,
+  minStep: 600,
+  maxStep: 1100,
+  loop: true
 };
 
 function fmt(v) {
