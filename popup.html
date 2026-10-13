@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { width: 260px; font-family: system-ui, "Microsoft YaHei", sans-serif; padding: 12px; margin: 0; font-size: 13px; }
+    h1 { font-size: 14px; margin: 0 0 10px; }
+    .row { display: flex; align-items: center; justify-content: space-between; margin: 6px 0; }
+    label { flex: 1; }
+    input[type=number] { width: 64px; padding: 3px 6px; border: 1px solid #ccc; border-radius: 4px; }
+    .hint { color: #888; font-size: 11px; margin-top: 10px; line-height: 1.5; }
+    .status { font-weight: bold; margin-bottom: 8px; }
+    .status.on { color: #2e7d32; }
+    .status.off { color: #888; }
+    .btn { width: 100%; padding: 6px; border: none; border-radius: 4px; cursor: pointer; background: #2e7d32; color: #fff; font-size: 13px; }
+    .btn:active { opacity: .8; }
+  </style>
+</head>
+<body>
+  <h1>Linux.Do AutoScroll</h1>
+  <div id="status" class="status off">状态: 停止 · 快捷键 Alt+Shift+S</div>
+  <button id="toggle" class="btn">开始滚动</button>
+  <div class="row"><label>间隔范围 (ms)</label><span id="iv"></span></div>
+  <div class="row"><label>步长范围 (px)</label><span id="sp"></span></div>
+  <div class="row"><label>触底循环</label><input type="checkbox" id="loop"></div>
+  <div class="row"><label>保存设置</label><button id="save" class="btn" style="width:auto;padding:3px 12px;background:#1565c0;">保存</button></div>
+  <div class="hint">
+    按 <b>Alt+Shift+S</b> 开始/停止(需先打开 linux.do 页面)。修改快捷键:扩展管理 → 键盘快捷键。<br>
+    浏览器最小化/切后台,滚动不停。
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

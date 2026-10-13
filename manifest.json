@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Linux.Do AutoScroll",
+  "version": "1.0.0",
+  "description": "linux.do 后台自动滚动 - 快捷键触发,模拟人工节奏,后台/最小化照常滚动",
+  "permissions": ["storage", "scripting", "tabs"],
+  "host_permissions": ["https://linux.do/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Linux.Do AutoScroll"
+  },
+  "commands": {
+    "toggle-scroll": {
+      "suggested_key": {
+        "default": "Alt+Shift+S",
+        "mac": "Alt+Shift+S"
+      },
+      "description": "开始/停止自动滚动"
+    }
+  }
+}
