@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Linux.Do AutoScroll",
-  "version": "1.0.0",
+  "version": "1.3.1",
   "description": "linux.do 后台自动滚动 - 快捷键触发,模拟人工节奏,后台/最小化照常滚动",
   "permissions": ["storage", "scripting", "tabs"],
   "host_permissions": ["https://linux.do/*"],
